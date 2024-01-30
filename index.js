@@ -7,6 +7,6 @@ const app = express()
   .use(express.static(path.join(__dirname, 'public')))
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
-  app.get('/', (req, res) => {
+  app.get('/test', (req, res) => {
     res.send('Hello World!')
   })

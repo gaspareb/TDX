@@ -1,11 +1,11 @@
 const express = require('express')
-const app = express()
-const port = 80
+const path = require('path')
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
+const PORT = process.env.PORT || 5001
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+express()
+  .use(express.static(path.join(__dirname, 'public')))
+  .set('views', path.join(__dirname, 'views'))
+  .set('view engine', 'ejs')
+  .get('/', (req, res) => res.render('pages/index'))
+  .listen(PORT, () => console.log(`Listening on ${ PORT }`))

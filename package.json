@@ -12,6 +12,9 @@
   "dependencies": {
     "express": "^4.18.2"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "ejs": "^3.1.5",
+    "express": "^4.15.2"
+  },
   "keywords": []
 }

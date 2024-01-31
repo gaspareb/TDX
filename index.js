@@ -11,7 +11,7 @@ app.get('/test', (req, res) => {
 })
 
 app.post('/dcexport', (req, res) => {
-  res.send('Hello World 3!')
+  res.send('Hello World 2!')
 })
 
 app.post('/posttest', (req, res) => {

@@ -7,10 +7,12 @@ express()
   .use(express.static(path.join(__dirname, 'public')))
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
-  express.get('/test', (req, res) => {
-    res.send('Hello World2!')
-  })
+const app = express()
 
-  express.get('/', (req, res) => {
-    res.send('Hello World1!')
-  })
+app.get('/test', (req, res) => {
+  res.send('Hello World2!')
+})
+
+app.get('/', (req, res) => {
+  res.send('Hello World1!')
+})

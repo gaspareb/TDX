@@ -1,5 +1,7 @@
 # TDXAPI application was built 
 
+# script to do the oush to git and heroku
+./run.sh
 
 # pushing changes to GIT and then to Heroku
 

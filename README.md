@@ -13,3 +13,6 @@ git push heroku master
 
 # run heroku locally
 heroku local
+
+# delete node_modules and rebuild
+npm install

@@ -3,14 +3,14 @@ const path = require('path')
 
 const PORT = process.env.PORT || 5001
 
-var app = express()
+express()
   .use(express.static(path.join(__dirname, 'public')))
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
-  app.get('/test', (req, res) => {
+  express.get('/test', (req, res) => {
     res.send('Hello World2!')
   })
 
-  app.get('/', (req, res) => {
+  express.get('/', (req, res) => {
     res.send('Hello World1!')
   })

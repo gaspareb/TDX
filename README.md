@@ -9,4 +9,4 @@ git commit -m "path fix"
 
 git push origin main
 
-git push heroku main
+git push heroku main.  

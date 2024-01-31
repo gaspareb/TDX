@@ -10,7 +10,7 @@ app.get('/test', (req, res) => {
   res.send('Hello World 1!')
 })
 
-app.post('/posttest2', (req, res) => {
+app.post('/dcexport', (req, res) => {
   res.send('Hello World 3!')
 })
 

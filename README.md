@@ -7,6 +7,5 @@ git add .
 
 git commit -m "path fix"
 
-git push origin main
+git push TDX master:main 
 
-git push heroku main.  

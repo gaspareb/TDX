@@ -22,7 +22,7 @@ app.post('/posttest', (req, res) => {
   res.send('Hello World 3!')
 })
 
-app.get('/clickSFEvent', (req, res) => {
+app.post('/clickSFEvent', (req, res) => {
   if(!req.signature_match) {
     return res.status(403).send('not called from webhooks service');
   }

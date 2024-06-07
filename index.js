@@ -18,6 +18,10 @@ app.post('/posttest', (req, res) => {
   res.send('Hello World 3!')
 })
 
+app.post('/clickSFEvent', (req, res) => {
+  res.send('Hello World 3!')
+})
+
 app.listen(PORT, () => {
   console.log(`TDXAPI App listening on port ${PORT}`)
 })

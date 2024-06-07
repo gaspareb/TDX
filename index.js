@@ -18,7 +18,7 @@ app.post('/posttest', (req, res) => {
   res.send('Hello World 3!')
 })
 
-app.post('/clickSFEvent', (req, res) => {
+app.get('/clickSFEvent', (req, res) => {
   res.send('Hello World 3!')
 })
 

@@ -24,15 +24,16 @@ app.post('/posttest', (req, res) => {
 
 app.post('/clickSFEvent', (req, res) => {
   if(!req.signature_match) {
+    console.log("req.signature_match: " + req.signature_match);
     return res.status(403).send('not called from webhooks service');
   }
 
-  res.status(204).send();
+  //res.status(204).send();
 
   // do whatever work needs to be done with the webhooks payload
   const body = req.body;
   console.log(body);
-  res.send('Hello World 3!')
+  res.status(204).send('Hello World 3!')
 })
 
 app.listen(PORT, () => {
@@ -40,13 +41,18 @@ app.listen(PORT, () => {
 })
 
 function verifySignature(req, res, buf, encoding) {
+  console.log("buf:" + buf);
+  console.log("encoding:" + encoding);
   const signature = req.header('x-adsk-signature');
-  if(!signature) { return; }
+  if(!signature) { console.log("signature:" + signature); return; }
 
   // use utf-8 encoding by default
   const body    = buf.toString(encoding);
+  console.log("body:" + body);
   const hmac    = crypto.createHmac('sha1', WEBHOOKS_SECRET);
+  console.log("hmac:" + hmac);
   const calcSignature = 'sha1hash=' + hmac.update(body).digest('hex');
+  console.log("calcSignature:" + calcSignature);
   req.signature_match = (calcSignature === signature);
 }
 

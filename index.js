@@ -23,6 +23,15 @@ app.post('/posttest', (req, res) => {
 })
 
 app.get('/clickSFEvent', (req, res) => {
+  if(!req.signature_match) {
+    return res.status(403).send('not called from webhooks service');
+  }
+
+  res.status(204).send();
+
+  // do whatever work needs to be done with the webhooks payload
+  const body = req.body;
+  console.log(body);
   res.send('Hello World 3!')
 })
 

@@ -3,6 +3,8 @@ const app = express()
 const PORT = process.env.PORT || 5001
 var bodyParser = require('body-parser');
 var crypto = require('crypto');
+var WEBHOOKS_SECRET = "a6LMimILHiKZEXWBvm8yvANVaRJ3J6KTnVAqsdN3vbXU8GkT6ipdrEdaSW86whsi0+e5bfi+Ws6O1U1zUe6jUw==";
+//;signingAlgorithm:"HMACSHA256";
 
 app.get('/', (req, res) => {
   res.send('Hello World OG!')

@@ -3,7 +3,7 @@ const app = express();
 const PORT = process.env.PORT || 5001;
 const bodyParser = require('body-parser');
 //var crypto = require('crypto');
-const WEBHOOKS_SECRET = "a6LMimILHiKZEXWBvm8yvANVaRJ3J6KTnVAqsdN3vbXU8GkT6ipdrEdaSW86whsi0+e5bfi+Ws6O1U1zUe6jUw==";
+const SIGNING_SECRET = "a6LMimILHiKZEXWBvm8yvANVaRJ3J6KTnVAqsdN3vbXU8GkT6ipdrEdaSW86whsi0+e5bfi+Ws6O1U1zUe6jUw==";
 
 app.get('/', (req, res) => {
   res.send('Hello World OG!')
@@ -22,18 +22,13 @@ app.post('/posttest', (req, res) => {
   res.send('Hello World 3!')
 })
 
-app.post('/clickSFEvent', (req, res) => {
+app.post('/clickSFEvent', bodyParser.raw({type:"application/json"}), async(req, res) => {
   console.log("/clickSFEvent requested");
-  // if(!req.signature_match) {
-  //   console.log("req.signature_match: " + req.signature_match);
-  //   return res.status(403).send('not called from webhooks service');
-  // }
-
-  //res.status(204).send();
-
-  // do whatever work needs to be done with the webhooks payload
   const body = req.body;
-  console.log(body);
+  console.log('body: ' + body);
+  console.log('headers: ' + JSON.stringify(req.headers));
+  const sig = req.headers['heroku'];
+  console.log(sig);
   res.status(200).send('Hello World 3!')
 })
 

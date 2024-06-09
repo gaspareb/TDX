@@ -19,10 +19,12 @@ app.post('/dcexport', (req, res) => {
 })
 
 app.post('/posttest', (req, res) => {
+  console.log("/posttest requested");
   res.send('Hello World 3!')
 })
 
 app.post('/clickSFEvent', (req, res) => {
+  console.log("/clickSFEvent requested");
   if(!req.signature_match) {
     console.log("req.signature_match: " + req.signature_match);
     return res.status(403).send('not called from webhooks service');

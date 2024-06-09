@@ -58,11 +58,11 @@ app.listen(PORT, () => {
 //   req.signature_match = (calcSignature === signature);
 // }
 
-// app.use(bodyParser.json({
-//   // inflate: true,
-//   // limit: '1024kb',
-//   // type: 'application/json',
-//   // verify: verifySignature
-// })
+app.use(bodyParser.json({
+  // inflate: true,
+  // limit: '1024kb',
+  // type: 'application/json',
+  // verify: verifySignature
+})
 
 );

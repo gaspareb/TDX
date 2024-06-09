@@ -25,10 +25,10 @@ app.post('/posttest', (req, res) => {
 
 app.post('/clickSFEvent', (req, res) => {
   console.log("/clickSFEvent requested");
-  if(!req.signature_match) {
-    console.log("req.signature_match: " + req.signature_match);
-    return res.status(403).send('not called from webhooks service');
-  }
+  // if(!req.signature_match) {
+  //   console.log("req.signature_match: " + req.signature_match);
+  //   return res.status(403).send('not called from webhooks service');
+  // }
 
   //res.status(204).send();
 
@@ -42,25 +42,27 @@ app.listen(PORT, () => {
   console.log(`TDXAPI App listening on port ${PORT}`)
 })
 
-function verifySignature(req, res, buf, encoding) {
-  console.log("buf:" + buf);
-  console.log("encoding:" + encoding);
-  const signature = req.header('x-adsk-signature');
-  if(!signature) { console.log("signature:" + signature); return; }
+// function verifySignature(req, res, buf, encoding) {
+//   console.log("buf:" + buf);
+//   console.log("encoding:" + encoding);
+//   const signature = req.header('x-adsk-signature');
+//   if(!signature) { console.log("signature:" + signature); return; }
 
-  // use utf-8 encoding by default
-  const body    = buf.toString(encoding);
-  console.log("body:" + body);
-  const hmac    = crypto.createHmac('sha1', WEBHOOKS_SECRET);
-  console.log("hmac:" + hmac);
-  const calcSignature = 'sha1hash=' + hmac.update(body).digest('hex');
-  console.log("calcSignature:" + calcSignature);
-  req.signature_match = (calcSignature === signature);
-}
+//   // use utf-8 encoding by default
+//   const body    = buf.toString(encoding);
+//   console.log("body:" + body);
+//   const hmac    = crypto.createHmac('sha1', WEBHOOKS_SECRET);
+//   console.log("hmac:" + hmac);
+//   const calcSignature = 'sha1hash=' + hmac.update(body).digest('hex');
+//   console.log("calcSignature:" + calcSignature);
+//   req.signature_match = (calcSignature === signature);
+// }
 
-app.use(bodyParser.json({
-  inflate: true,
-  limit: '1024kb',
-  type: 'application/json',
-  verify: verifySignature
-}));
+// app.use(bodyParser.json({
+//   // inflate: true,
+//   // limit: '1024kb',
+//   // type: 'application/json',
+//   // verify: verifySignature
+// })
+
+);

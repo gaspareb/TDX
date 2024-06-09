@@ -34,7 +34,7 @@ app.post('/clickSFEvent', (req, res) => {
   // do whatever work needs to be done with the webhooks payload
   const body = req.body;
   console.log(body);
-  res.status(204).send('Hello World 3!')
+  res.status(200).send('Hello World 3!')
 })
 
 app.listen(PORT, () => {

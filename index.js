@@ -4,7 +4,7 @@ const bodyParser = require('body-parser')
 const PORT = process.env.PORT || 5001;
 const secret = 'a6LMimILHiKZEXWBvm8yvANVaRJ3J6KTnVAqsdN3vbXU8GkT6ipdrEdaSW86whsi0+e5bfi+Ws6O1U1zUe6jUw==';
 
-const sigHeaderName = 'X-Signature-SHA256'
+const sigHeaderName = 'x-signature'
 const sigHashAlg = 'HMACSHA256'
 
 const app = express()

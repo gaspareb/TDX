@@ -37,7 +37,7 @@ app.post('/clickSFEvent', verifyPostData, function (req, res) {
 })
 
 app.get('/', (req, res) => {
-  res.send('Hello World OG!')
+  res.status(200).send('Hello World OG!')
 })
 
 app.use((err, req, res, next) => {

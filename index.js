@@ -25,17 +25,6 @@ app.post('/posttest', (req, res) => {
 
 app.post('/clickSFEvent', bodyParser.raw({type:"application/json"}), async(req, res) => {
   console.log("/clickSFEvent requested");
-
-  app.use(
-    bodyParser.json({
-      verify: (req, res, buf, encoding) => {
-        if (buf && buf.length) {
-          req.rawBody = buf.toString(encoding || "utf8");
-        }
-      },
-    }),
-  );
-
   const body = req.body;
   console.log('body: ' + body);
   console.log('headers: ' + JSON.stringify(req.headers));

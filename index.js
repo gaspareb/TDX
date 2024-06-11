@@ -18,6 +18,7 @@ app.use(bodyParser.json({
 }))
 
 function verifyPostData(req, res, next) {
+  console.log('verifyPostData=>' + verifyPostData);
   if (!req.rawBody) {
     return next('Request body empty')
   }

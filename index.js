@@ -5,7 +5,7 @@ const PORT = process.env.PORT || 5001;
 const secret = 'a6LMimILHiKZEXWBvm8yvANVaRJ3J6KTnVAqsdN3vbXU8GkT6ipdrEdaSW86whsi0+e5bfi+Ws6O1U1zUe6jUw==';
 
 const sigHeaderName = 'x-signature'
-const sigHashAlg = 'HMACSHA256'
+const sigHashAlg = 'sha256'
 
 const app = express()
 
@@ -33,7 +33,7 @@ function verifyPostData(req, res, next) {
 }
 
 app.post('/clickSFEvent', verifyPostData, function (req, res) {
-  
+
   res.status(200).send('Request body was signed')
 })
 

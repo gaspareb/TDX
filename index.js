@@ -2,7 +2,7 @@ const crypto = require('crypto')
 const express = require('express')
 const bodyParser = require('body-parser')
 const PORT = process.env.PORT || 5001;
-const secret = 'a6LMimILHiKZEXWBvm8yvANVaRJ3J6KTnVAqsdN3vbXU8GkT6ipdrEdaSW86whsi0+e5bfi+Ws6O1U1zUe6jUw==';
+const secret = 'signingKey:"0FdRFdnNQppXAECzVQyagPwA9jNmdgiQltU9KTjzmQjU6810vlutLRijNbwXUEq19b+YocdbyIWez7OJ1x8K5A==";signingAlgorithm:"HMACSHA256"';
 
 const sigHeaderName = 'x-signature'
 const sigHashAlg = 'sha256'
@@ -33,7 +33,7 @@ function verifyPostData(req, res, next) {
 }
 
 app.post('/clickSFEvent', verifyPostData, function (req, res) {
-
+  console.log('headers: ' + JSON.stringify(req.headers));
   res.status(200).send('Request body was signed')
 })
 

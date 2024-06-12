@@ -2,11 +2,9 @@ const crypto = require('crypto')
 const express = require('express')
 const bodyParser = require('body-parser')
 const PORT = process.env.PORT || 5001;
-const secret = 'signingKey:"0FdRFdnNQppXAECzVQyagPwA9jNmdgiQltU9KTjzmQjU6810vlutLRijNbwXUEq19b+YocdbyIWez7OJ1x8K5A==";signingAlgorithm:"HMACSHA256"';
-
+const secret = '0FdRFdnNQppXAECzVQyagPwA9jNmdgiQltU9KTjzmQjU6810vlutLRijNbwXUEq19b+YocdbyIWez7OJ1x8K5A==';
 const sigHeaderName = 'x-signature'
-const sigHashAlg = 'sha256'
-
+const sigHashAlg = 'HMACSHA256'
 const app = express()
 
 app.use(bodyParser.json({
@@ -24,9 +22,12 @@ function verifyPostData(req, res, next) {
     return next('Request body empty');
   }
 
+  console.log('sig1: ' + req.get(sigHeaderName));
+
   const sig = Buffer.from(req.get(sigHeaderName) || '', 'utf8');
-  console.log('sig: ' + sig);
-  const signature = req.headers['x-HMACSHA256-signature'];
+  
+  console.log('sig2: ' + sig);
+  const signature = req.headers[sigHeaderName];
   console.log('signature: ' + signature);
   const hmac = crypto.createHmac(sigHashAlg, secret)
   console.log('hmac: ' + hmac);

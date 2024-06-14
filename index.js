@@ -24,12 +24,10 @@ function verifyPostData(req, res, next) {
       console.log('req.rawBody2: ' + req.rawBody);
       return next('Request body empty');
     }
-    console.log('req.rawBody1: ' + req.rawBody)
-
-    const sig = Buffer.from(req.get(sigHeaderName) || '', 'utf8');    
-    console.log('sig2: ' + sig);
-
-    const signature = req.headers[sigHeaderName];
+    console.log('req.rawBody1: ' + req.rawBody);
+    console.log('req.parse: ' + JSON.parse(req.body));
+   
+    const signature = Buffer.from(req.get(sigHeaderName) || '', 'utf8');    
     console.log('signature: ' + signature);
     
     const hmac = crypto.createHmac(sigHashAlg, secret)
@@ -38,8 +36,8 @@ function verifyPostData(req, res, next) {
     const digest = Buffer.from(sigHashAlg + '=' + hmac.update(req.rawBody).digest('hex'), 'utf8');
     console.log('digest: ' + digest);
     
-    if (sig.length !== digest.length || !crypto.timingSafeEqual(digest, sig)) {
-      return next(`Request body digest (${digest}) did not match ${sigHeaderName} (${sig})`);
+    if (signature.length !== digest.length || !crypto.timingSafeEqual(digest, signature)) {
+      return next(`Request body digest (${digest}) did not match ${sigHeaderName} (${signature})`);
     }
 
   } catch (error) {

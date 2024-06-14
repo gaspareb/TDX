@@ -25,7 +25,7 @@ function verifyPostData(req, res, next) {
       return next('Request body empty');
     }
     console.log('req.rawBody1: ' + req.rawBody);
-    console.log('req.parse: ' + JSON.parse(req.body));
+    console.log('req.body: ' + req.body);
    
     const signature = Buffer.from(req.get(sigHeaderName) || '', 'utf8');    
     console.log('signature: ' + signature);

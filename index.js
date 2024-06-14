@@ -24,21 +24,24 @@ function verifyPostData(req, res, next) {
       console.log('req.rawBody2: ' + req.rawBody);
       return next('Request body empty');
     }
-  
-    console.log('sig1: ' + req.get(sigHeaderName));
-  
-    const sig = Buffer.from(req.get(sigHeaderName) || '', 'utf8');
-    
+    console.log('req.rawBody1: ' + req.rawBody)
+
+    const sig = Buffer.from(req.get(sigHeaderName) || '', 'utf8');    
     console.log('sig2: ' + sig);
+
     const signature = req.headers[sigHeaderName];
     console.log('signature: ' + signature);
+    
     const hmac = crypto.createHmac(sigHashAlg, secret)
     console.log('hmac: ' + hmac);
+    
     const digest = Buffer.from(sigHashAlg + '=' + hmac.update(req.rawBody).digest('hex'), 'utf8');
     console.log('digest: ' + digest);
+    
     if (sig.length !== digest.length || !crypto.timingSafeEqual(digest, sig)) {
       return next(`Request body digest (${digest}) did not match ${sigHeaderName} (${sig})`);
     }
+
   } catch (error) {
     console.log('error: ' + error);
   }

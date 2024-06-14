@@ -38,6 +38,8 @@ function verifyPostData(req, res, next) {
     
     if (signature.length !== digest.length || !crypto.timingSafeEqual(digest, signature)) {
       return next(`Request body digest (${digest}) did not match ${sigHeaderName} (${signature})`);
+    }else{
+      console.log('Request body digest ' + digest + ' did match ' + sigHeaderName + ' ' + signature);
     }
 
   } catch (error) {

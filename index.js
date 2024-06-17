@@ -45,7 +45,7 @@ function verifyPostData(req, res, next) {
     if (crypto.timingSafeEqual(digest, signature)) {
       console.log('MATCH: ');
       var obj = JSON.parse(req.rawBody);
-      console.log('obj: ' + obj);
+      console.log('obj: ' + JSON.stringify(obj.PayloadCurrentValue));
       res.status(200).send('Request body was signed');
       //return next('Request body digest ' + digest + ' DID MATCH ' + signature);
     }else{

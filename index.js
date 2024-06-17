@@ -32,22 +32,18 @@ function verifyPostData(req, res, next) {
     const hmac = crypto.createHmac(sigHashAlg, signing_key)
     console.log('hmac: ' + hmac);
     
-    //const digest = Buffer.from(sigHashAlg + '=' + hmac.update(req.body).digest('base64'), 'utf8');
     const digest = Buffer.from(hmac.update(req.rawBody).digest('base64'));
-    //const digest = Buffer.from(sigHashAlg + '=' + hmac.update(req.rawBody).digest('hex'), 'utf8');
-    //hmac.update(req.body);
-    //console.log('hmac: ' + hmac);
-    //const digest = hmac.digest('base64');
-    
     console.log('digest: ' + digest);
-    console.log('compare: ' + digest === signature);
 
     if (crypto.timingSafeEqual(digest, signature)) {
       console.log('MATCH: ');
       var obj = JSON.parse(req.rawBody);
-      console.log('obj: ' + JSON.stringify(obj.PayloadCurrentValue));
+      var array = Object.keys(obj)
+      for (var i = 0; i < array.length; i++) {
+          console.log(array[i], obj[array[i]]);
+      }
+
       res.status(200).send('Request body was signed');
-      //return next('Request body digest ' + digest + ' DID MATCH ' + signature);
     }else{
       console.log('NO MATCH: ');
       return next('Request body digest ' + digest + ' DID NOT MATCH ' + signature);

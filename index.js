@@ -41,9 +41,9 @@ function verifyPostData(req, res, next) {
     console.log('digest: ' + digest);
 
     if (digest === signature) {
-      return next('Request body digest (${digest}) DID MATCH ${sigHeaderName} (${signature})');
+      return next('Request body digest ' + digest + ' DID MATCH ' + signature);
     }else{
-      return next('Request body digest (${digest}) DID NOT MATCH ${sigHeaderName} (${signature})');
+      return next('Request body digest ' + digest + ' DID NOT MATCH ' + signature);
       
     }
 
@@ -68,4 +68,4 @@ app.use((err, req, res, next) => {
   res.status(403).send('Request body was not signed or verification failed');
 })
 
-app.listen(PORT, () => console.log("TDXAPI App listening on port ${PORT}"))
+app.listen(PORT, () => console.log("TDXAPI App listening on port " + PORT))

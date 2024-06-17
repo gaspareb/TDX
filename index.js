@@ -34,10 +34,11 @@ function verifyPostData(req, res, next) {
     console.log('hmac: ' + hmac);
     
  
-    //const digest = Buffer.from(sigHashAlg + '=' + hmac.update(req.rawBody).digest('base64'), 'utf8');
+    const digest = Buffer.from(sigHashAlg + '=' + hmac.update(req.rawBody).digest('base64'), 'utf8');
     //const digest = Buffer.from(sigHashAlg + '=' + hmac.update(req.rawBody).digest('hex'), 'utf8');
-    hmac.update(req.body);
-    const digest = hmac.digest('base64');  
+    // hmac.update(req.body);
+    // const digest = hmac.digest('base64');  
+    
     console.log('digest: ' + digest);
     
     if (crypto.timingSafeEqual(digest, signature)) {

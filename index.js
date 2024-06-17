@@ -13,7 +13,7 @@ app.use(bodyParser.json({
   verify: (req, res, buf, encoding) => {    
     if (buf && buf.length) {
       req.rawBody = buf.toString(encoding || 'utf8');
-      console.log('req.rawBody: ' + req.rawBody);
+      console.log('req.rawBodyA: ' + req.rawBody);
     }
   },
 }))
@@ -35,11 +35,11 @@ function verifyPostData(req, res, next) {
     console.log('hmac: ' + hmac);
     
     //const digest = Buffer.from(sigHashAlg + '=' + hmac.update(req.body).digest('base64'), 'utf8');
-    //const digest = Buffer.from(sigHashAlg + '=' + hmac.update(req.rawBody).digest('base64'), 'utf8');
+    const digest = Buffer.from(sigHashAlg + '=' + hmac.update(req.rawBody).digest('base64'));
     //const digest = Buffer.from(sigHashAlg + '=' + hmac.update(req.rawBody).digest('hex'), 'utf8');
-    hmac.update(req.body);
+    //hmac.update(req.body);
     //console.log('hmac: ' + hmac);
-    const digest = hmac.digest('base64');
+    //const digest = hmac.digest('base64');
     
     console.log('digest: ' + digest);
     

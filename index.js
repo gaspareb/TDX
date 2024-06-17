@@ -2,7 +2,7 @@ const crypto = require('crypto')
 const express = require('express')
 const bodyParser = require('body-parser')
 const PORT = process.env.PORT || 5001;
-const secret = process.env.SECRET;
+const signing_key = process.env.SECRET;
 const sigHeaderName = 'x-signature'
 //const sigHashAlg = 'HMACSHA256'
 const sigHashAlg = 'sha256'
@@ -30,16 +30,16 @@ function verifyPostData(req, res, next) {
     const signature = Buffer.from(req.get(sigHeaderName) || '', 'utf8');    
     console.log('signature: ' + signature);
     
-    const hmac = crypto.createHmac(sigHashAlg, secret)
+    const hmac = crypto.createHmac(sigHashAlg, signing_key)
     console.log('hmac: ' + hmac);
     
-    const digest = Buffer.from(sigHashAlg + '=' + hmac.update(req.rawBody).digest('hex'), 'utf8');
+    const digest = Buffer.from(sigHashAlg + '=' + hmac.update(req.rawBody).digest('base64'), 'utf8');
     console.log('digest: ' + digest);
     
     if (signature.length !== digest.length || !crypto.timingSafeEqual(digest, signature)) {
-      return next(`Request body digest (${digest}) did not match ${sigHeaderName} (${signature})`);
+      return next('Request body digest (${digest}) did not match ${sigHeaderName} (${signature})');
     }else{
-      console.log('Request body digest ' + digest + ' did match ' + sigHeaderName + ' ' + signature);
+      console.log('MATCH - Request body digest ' + digest + ' DID MATCH ' + sigHeaderName + ' ' + signature);
     }
 
   } catch (error) {

@@ -39,8 +39,8 @@ function verifyPostData(req, res, next) {
     hmac.update(req.rawBody);
     const digest = hmac.digest('base64');  
     console.log('digest: ' + digest);
-
-    if (digest === signature) {
+    
+    if (crypto.timingSafeEqual(digest, signature)) {
       return next('Request body digest ' + digest + ' DID MATCH ' + signature);
     }else{
       return next('Request body digest ' + digest + ' DID NOT MATCH ' + signature);

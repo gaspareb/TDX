@@ -27,18 +27,19 @@ function verifyPostData(req, res, next) {
     console.log('req.rawBody1: ' + req.rawBody);
     console.log('req.body: ' + req.body);
    
-    const signature = Buffer.from(req.get(sigHeaderName) || '', 'utf8');    
+    //const signature = Buffer.from(req.get(sigHeaderName) || '', 'utf8');    
+    const signature = req.headers['x-signature'];
     console.log('signature: ' + signature);
     
     const hmac = crypto.createHmac(sigHashAlg, signing_key)
     console.log('hmac: ' + hmac);
     
- 
-    const digest = Buffer.from(sigHashAlg + '=' + hmac.update(req.rawBody).digest('base64'), 'utf8');
+    //const digest = Buffer.from(sigHashAlg + '=' + hmac.update(req.body).digest('base64'), 'utf8');
+    //const digest = Buffer.from(sigHashAlg + '=' + hmac.update(req.rawBody).digest('base64'), 'utf8');
     //const digest = Buffer.from(sigHashAlg + '=' + hmac.update(req.rawBody).digest('hex'), 'utf8');
-    // hmac.update(req.body);
+    hmac.update(req.body);
     //console.log('hmac: ' + hmac);
-    // const digest = hmac.digest('base64');  
+    const digest = hmac.digest('base64');
     
     console.log('digest: ' + digest);
     

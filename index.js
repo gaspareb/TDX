@@ -33,16 +33,16 @@ function verifyPostData(req, res, next) {
     const hmac = crypto.createHmac(sigHashAlg, signing_key)
     console.log('hmac: ' + hmac);
     
-    hmac.update(req.rawBody);
-    const digest = hmac.digest('base64'); 
-    //const digest = Buffer.from(sigHashAlg + '=' + hmac.update(req.rawBody).digest('base64'), 'utf8');
+ 
+    const digest = Buffer.from(sigHashAlg + '=' + hmac.update(req.rawBody).digest('base64'), 'utf8');
     //const digest = Buffer.from(sigHashAlg + '=' + hmac.update(req.rawBody).digest('hex'), 'utf8');
     console.log('digest: ' + digest);
-    
-    if (signature.length !== digest.length || !crypto.timingSafeEqual(digest, signature)) {
-      return next('Request body digest (${digest}) did not match ${sigHeaderName} (${signature})');
+
+    if (digest === signature) {
+      return next('Request body digest (${digest}) DID MATCH ${sigHeaderName} (${signature})');
     }else{
-      console.log('MATCH - Request body digest ' + digest + ' DID MATCH ' + sigHeaderName + ' ' + signature);
+      return next('Request body digest (${digest}) DID NOT MATCH ${sigHeaderName} (${signature})');
+      
     }
 
   } catch (error) {
@@ -50,7 +50,7 @@ function verifyPostData(req, res, next) {
   }
   
 
-  return next()
+  //return next()
 }
 
 app.post('/clickSFEvent', verifyPostData, function (req, res) {

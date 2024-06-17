@@ -26,7 +26,9 @@ function verifyPostData(req, res, next) {
     }
     console.log('req.rawBody1: ' + req.rawBody);
     console.log('req.body: ' + req.body);
-   
+    req.body.forEach(function(entry, index) {
+      console.log(index, entry.name)
+    });
     //const signature = Buffer.from(req.get(sigHeaderName) || '', 'utf8');    
     const signature = req.headers['x-signature'];
     console.log('signature: ' + signature);

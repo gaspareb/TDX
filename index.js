@@ -4,7 +4,6 @@ const bodyParser = require('body-parser')
 const PORT = process.env.PORT || 5001;
 const signing_key = process.env.SECRET;
 const sigHeaderName = 'x-signature'
-//const sigHashAlg = 'HMACSHA256'
 const sigHashAlg = 'sha256'
 const app = express()
 const dotenv = require('dotenv');
@@ -25,7 +24,7 @@ function verifyPostData(req, res, next) {
       console.log('req.rawBody2: ' + req.rawBody);
       return next('Request body empty');
     }
-    console.log('req.body3 PayloadCurrentValue: ' + JSON.stringify(req.rawBody.PayloadCurrentValue));
+    console.log('req.body3: ' + JSON.stringify(req.rawBody));
     //const signature = Buffer.from(req.get(sigHeaderName) || '', 'utf8');    
     const signature = req.headers['x-signature'];
     console.log('signature: ' + signature);
@@ -42,9 +41,6 @@ function verifyPostData(req, res, next) {
     
     console.log('digest: ' + digest);
     console.log('compare: ' + digest === signature);
-
-    if(digest = signature)
-    console.log('compare2: ');
 
     if (crypto.timingSafeEqual(digest, signature)) {
       console.log('MATCH: ');

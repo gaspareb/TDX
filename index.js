@@ -45,8 +45,10 @@ function verifyPostData(req, res, next) {
     console.log('digest: ' + digest);
     
     if (crypto.timingSafeEqual(digest, signature)) {
+      console.log('MATCH: ');
       return next('Request body digest ' + digest + ' DID MATCH ' + signature);
     }else{
+      console.log('NO MATCH: ');
       return next('Request body digest ' + digest + ' DID NOT MATCH ' + signature);
       
     }

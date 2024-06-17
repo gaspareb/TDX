@@ -39,6 +39,7 @@ function verifyPostData(req, res, next) {
       console.log('MATCH: ');
       var obj = JSON.parse(req.rawBody);
       var array = Object.keys(obj)
+      console.log('array: ' + array);
       for (var i = 0; i < array.length; i++) {
           console.log(array[i], obj[array[i]]);
       }

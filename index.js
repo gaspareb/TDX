@@ -11,6 +11,7 @@ const dotenv = require('dotenv');
 
 app.use(bodyParser.json({
   verify: (req, res, buf, encoding) => {    
+    console.log('req.rawBody1: ');
     if (buf && buf.length) {
       req.rawBody = buf.toString(encoding || 'utf8');
       console.log('req.rawBodyA: ' + req.rawBody);
@@ -26,7 +27,7 @@ function verifyPostData(req, res, next) {
     }
     console.log('req.rawBody1: ' + req.rawBody);
     console.log('req.body: ' + req.body);
-    console.log('req.body3: ' + JSON.stringify(req.body));
+    console.log('req.body3: ' + JSON.stringify(req.rawBody));
     //const signature = Buffer.from(req.get(sigHeaderName) || '', 'utf8');    
     const signature = req.headers['x-signature'];
     console.log('signature: ' + signature);
@@ -35,7 +36,7 @@ function verifyPostData(req, res, next) {
     console.log('hmac: ' + hmac);
     
     //const digest = Buffer.from(sigHashAlg + '=' + hmac.update(req.body).digest('base64'), 'utf8');
-    const digest = Buffer.from(sigHashAlg + '=' + hmac.update(req.rawBody).digest('base64'));
+    const digest = Buffer.from(hmac.update(req.rawBody).digest('base64'));
     //const digest = Buffer.from(sigHashAlg + '=' + hmac.update(req.rawBody).digest('hex'), 'utf8');
     //hmac.update(req.body);
     //console.log('hmac: ' + hmac);

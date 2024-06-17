@@ -25,8 +25,8 @@ function verifyPostData(req, res, next) {
       return next('Request body empty');
     }
     console.log('req.body3: ' + JSON.stringify(req.rawBody));
-    //const signature = Buffer.from(req.get(sigHeaderName) || '', 'utf8');    
-    const signature = req.headers['x-signature'];
+    const signature = Buffer.from(req.get(sigHeaderName) || '', 'utf8');    
+    //const signature = req.headers['x-signature'];
     console.log('signature: ' + signature);
     
     const hmac = crypto.createHmac(sigHashAlg, signing_key)

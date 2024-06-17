@@ -37,6 +37,7 @@ function verifyPostData(req, res, next) {
     const digest = Buffer.from(sigHashAlg + '=' + hmac.update(req.rawBody).digest('base64'), 'utf8');
     //const digest = Buffer.from(sigHashAlg + '=' + hmac.update(req.rawBody).digest('hex'), 'utf8');
     // hmac.update(req.body);
+    //console.log('hmac: ' + hmac);
     // const digest = hmac.digest('base64');  
     
     console.log('digest: ' + digest);

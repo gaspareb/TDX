@@ -9,15 +9,15 @@ const sigHashAlg = 'sha256'
 const app = express()
 const dotenv = require('dotenv');
 
-app.use(bodyParser.json({
-  verify: (req, res, buf, encoding) => {    
-    console.log('req.rawBody1: ');
-    if (buf && buf.length) {
-      req.rawBody = buf.toString(encoding || 'utf8');
-      console.log('req.rawBodyA: ' + req.rawBody);
-    }
-  },
-}))
+// app.use(bodyParser.json({
+//   verify: (req, res, buf, encoding) => {    
+//     console.log('req.rawBody1000: ');
+//     if (buf && buf.length) {
+//       req.rawBody = buf.toString(encoding || 'utf8');
+//       console.log('req.rawBodyA: ' + req.rawBody);
+//     }
+//   },
+// }))
 
 function verifyPostData(req, res, next) {
   try {

@@ -33,7 +33,10 @@ function verifyPostData(req, res, next) {
     const hmac = crypto.createHmac(sigHashAlg, signing_key)
     console.log('hmac: ' + hmac);
     
-    const digest = Buffer.from(sigHashAlg + '=' + hmac.update(req.rawBody).digest('base64'), 'utf8');
+    hmac.update(req.rawBody);
+    const digest = hmac.digest('base64'); 
+    //const digest = Buffer.from(sigHashAlg + '=' + hmac.update(req.rawBody).digest('base64'), 'utf8');
+    //const digest = Buffer.from(sigHashAlg + '=' + hmac.update(req.rawBody).digest('hex'), 'utf8');
     console.log('digest: ' + digest);
     
     if (signature.length !== digest.length || !crypto.timingSafeEqual(digest, signature)) {

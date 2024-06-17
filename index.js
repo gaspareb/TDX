@@ -25,7 +25,7 @@ function verifyPostData(req, res, next) {
       console.log('req.rawBody2: ' + req.rawBody);
       return next('Request body empty');
     }
-    console.log('req.body3: ' + JSON.stringify(req.rawBody.PayloadCurrentValue));
+    console.log('req.body3 PayloadCurrentValue: ' + JSON.stringify(req.rawBody.PayloadCurrentValue));
     //const signature = Buffer.from(req.get(sigHeaderName) || '', 'utf8');    
     const signature = req.headers['x-signature'];
     console.log('signature: ' + signature);
@@ -42,6 +42,9 @@ function verifyPostData(req, res, next) {
     
     console.log('digest: ' + digest);
     console.log('compare: ' + digest === signature);
+
+    if(digest = signature)
+    console.log('compare2: ');
 
     if (crypto.timingSafeEqual(digest, signature)) {
       console.log('MATCH: ');
